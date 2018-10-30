@@ -3,7 +3,8 @@ import './sass/all.scss';
 import './assets/icon-font.css';
 
 class App extends Component {
-  render() {
+
+render() {
     return (
 		<main className="wrapper">
 			<section className="section section-todo">
