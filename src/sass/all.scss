@@ -10,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
 	font-family: sans-serif;
+	background-color: pink;
 }
 * {
 	-webkit-box-sizing: border-box;
@@ -91,6 +92,7 @@ body {
 // ========================================= */
 // @import 'pages/home';
 // @import 'pages/page__error';
+@import 'pages/todolist';
 /* =========================================
 // 8.0 Custom styles 客製化設定
 // ========================================= */
