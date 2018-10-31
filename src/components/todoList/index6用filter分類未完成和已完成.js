@@ -20,17 +20,15 @@ class Todolist extends Component {
 	}
 
 	render() {
-		const filterNo = this.state.list.filter((item) => {
-			if(item.type === "no"){
+		const filterNo = this.state.list.filter((item)=>{
+			if(item.type == "no"){
 				return item
 			}
-			return false
 		})
-		const filterOk = this.state.list.filter((item) => {
-			if(item.type === "ok"){
+		const filterOk = this.state.list.filter((item)=>{
+			if(item.type == "ok"){
 				return item
 			}
-			return false
 		})
 		console.log(filterNo);
 		return (
@@ -46,11 +44,9 @@ class Todolist extends Component {
 							{
 								filterNo.map((item, index)=>{
 									return (
-										<TodoItem
-											// 把key={index}改用{item.id}帶入
-											// 把index={index}改用{item.id}帶入
-											key={item.id}
-											index={item.id}
+										<TodoItem 			
+											key={index}
+											index={index}
 											content={item.inputValue}
 											changeItemValue={this.changeItemValue}
 											deleteItem={this.deleteItem}
@@ -63,15 +59,12 @@ class Todolist extends Component {
 							{
 								filterOk.map((item, index)=>{
 									return (
-										<TodoItem 		
-											// 把key={index}改用{item.id}帶入
-											// 把index={index}改用{item.id}帶入	
-											key={item.id}
-											index={item.id}
+										<TodoItem 			
+											key={index}
+											index={index}
 											content={item.inputValue}
 											changeItemValue={this.changeItemValue}
 											deleteItem={this.deleteItem}
-											style={{opaticy: 50}}
 										/>
 									)
 								})
@@ -104,6 +97,7 @@ class Todolist extends Component {
 
 	// 新增任務
 	handleInputChange(e){
+		// console.log('新增任務',this.state.inputValue)
 		this.setState({
 			inputValue: e.target.value
 		})
@@ -132,34 +126,45 @@ class Todolist extends Component {
 
 	// 子元件Blur時觸發
 	changeItemValue(index, inputValue){
-		console.log('index',index);
+		// console.log('子元件Blur觸發');
+		// console.log('inputValue：',inputValue);
+		// console.log('index',index);
+
 		const [...list] = this.state.list;
-		// list[index].inputValue = inputValue;
-			list.map((item)=>{
-			if(item.id === index){
-				item.inputValue = inputValue;
-			}
-			return item;
-		})
+		list[index].inputValue = inputValue;
 		this.setState({
 			list : list		
 		})
-	}	
 
+	}
+	
+	// // 子元件Blur時觸發(異步寫法)
+	// changeItemValue(index, inputValue){
+	// 	this.setState((prevState) => {
+	// 		const list = [...prevState.list];
+	// 		list[index].inputValue = inputValue;
+	// 		return {list}
+	// 	})
+	// }
+
+	
 	//  刪除
-	deleteItem(index){		
-		console.log('index',index);	
+	deleteItem(index){			
 		const [...list] = this.state.list;
-		list.map((item, i)=>{
-			if(item.id === index){
-				list.splice(i, 1);
-			}
-			return item;
-		})
+		list.splice(index, 1);
 		this.setState({
 			list : list		
 		})
 	}
+
+	// // 刪除(用異步寫法)
+	// deleteItem(index){			
+	// 	this.setState((prevState) => {
+	// 		const list = [...prevState.list];
+	// 		list.splice(index, 1);
+	// 		return {list}
+	// 	})
+	// }
 
 }
 
