@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem'
 import './../../sass/all.scss';
 import './../../assets/icon-font.css';
 
-class Todolist extends Component {
+export default class TodolistTest extends Component {
 	constructor(props) {
 		super(props);
+		// 2.
 		this.state = {
 			inputValue: '',
+			// 1.
+			// 26.
 			list: [
                 {id: "1",inputValue: "111000", type: "no" },
                 {id: "2",inputValue: "222000", type: "ok" }
-            ]
+            ]			
 		}
-		this.handleInputChange = this.handleInputChange.bind(this);
+		
+		this.handleInputChange = this.handleInputChange.bind(this);		
 		this.handleItemSubmit = this.handleItemSubmit.bind(this);
 		this.changeItemValue = this.changeItemValue.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 		this.changeCheckbox = this.changeCheckbox.bind(this);
-		this.handleItemClear = this.handleItemClear.bind(this);		
+		this.handleItemClear = this.handleItemClear.bind(this);	
 	}
 
 	render() {
+		// 27.
 		const filterNo = this.state.list.filter((item) => {
 			if(item.type === "no"){
 				return item
@@ -34,7 +39,6 @@ class Todolist extends Component {
 			}
 			return false
 		})
-		console.log(filterNo);
 		return (
 			<main className="wrapper">
 				<section className="section section-todo">
@@ -44,26 +48,30 @@ class Todolist extends Component {
 							<span className="heading-primary--sub">Built by Phy  for her CSS AND SASS. Copyright © by Phy.</span>
 						</h1>											
 						<ul className="todo__list">
-							<h5>代辦清單</h5>	
+							<h5>代辦清單</h5>
+							{/* 7. 傳入key和值給子組件 */}
 							{
 								filterNo.map((item, index)=>{
 									return (
-										<TodoItem
-											// 把key={index}改用{item.id}帶入
-											// 把index={index}改用{item.id}帶入
+										<TodoItem 	
+											// 18.		
 											key={item.id}
 											index={item.id}
+
 											content={item.inputValue}
+											// 16.
 											changeItemValue={this.changeItemValue}
-											deleteItem={this.deleteItem}
+											// 23.
+											deleteItem={this.deleteItem}											
+											// 31.
 											changeCheckbox={this.changeCheckbox}
 											type={item.type}
 										/>
 									)
 								})
 							}
-							
-							<h5>已完成</h5>				
+							<h5>已完成</h5>		
+							{/* 28.		 */}
 							{
 								filterOk.map((item, index)=>{
 									return (
@@ -85,18 +93,20 @@ class Todolist extends Component {
 							<li className="todo__item--add">						
 								<div className="todo__content">
 									<div className="form__group">
-										<input
+										<input	
+											// 3.讀取value值 this.state.inputValue
+											// 3.新增偵測改變 this.handleInputChange	
 											value={this.state.inputValue}
-											onChange={this.handleInputChange}		
+											onChange={this.handleInputChange}	
 											className="form__input" placeholder="請輸入" type="text" 
 										/>
 									</div>
 								</div>
 								<div className="todo__actions">
 									<a 
+										// 5.送出新增
 										onClick={this.handleItemSubmit}
-										href='./'
-									><i className="todo__icon icon-basic-todolist-pen"></i>送出</a>
+										href='./'><i className="todo__icon icon-basic-todolist-pen"></i>送出</a>
 									<a 
 										onClick={this.handleItemClear}
 										href='./'><i className="todo__icon icon-basic-trashcan"></i>取消</a>
@@ -109,14 +119,15 @@ class Todolist extends Component {
 		);
   	}
 
-	// 新增任務
+	// 4. 偵測改變
 	handleInputChange(e){
+		console.log('e.target.value', e.target.value)
 		this.setState({
 			inputValue: e.target.value
 		})
-	} 
+	}
 
-	// 點擊送出新增資料
+	// 6. 送出新增
 	handleItemSubmit(e){
 		e.preventDefault();
 
@@ -130,19 +141,21 @@ class Todolist extends Component {
 			inputValue: this.state.inputValue,  // 輸入的字
 			type: "no"
 		}
-		
 		this.setState({
 			list : [...this.state.list, newListItem],
-			inputValue: '',
-			// type: "no"
+			inputValue: ''
 		})
 	}
 
-	// 子元件Blur時觸發
+	// 17.要傳參數~重要
 	changeItemValue(index, inputValue){
-		console.log('index',index);
-		const [...list] = this.state.list;
+		// const [...list] = this.state.list;
 		// list[index].inputValue = inputValue;
+
+		// this.setState({
+		// 	list : list		
+		// })
+		const [...list] = this.state.list;
 			list.map((item)=>{
 			if(item.id === index){
 				item.inputValue = inputValue;
@@ -152,26 +165,21 @@ class Todolist extends Component {
 		this.setState({
 			list : list		
 		})
-	}	
+	}
 
-	//  刪除
-	deleteItem(index){		
-		console.log('index',index);	
+	// 24.要傳參數~重要
+	deleteItem(index){
 		const [...list] = this.state.list;
-		list.map((item, i)=>{
-			if(item.id === index){
-				list.splice(i, 1);
-			}
-			return item;
-		})
+		list.splice(index, 1);
 		this.setState({
 			list : list		
 		})
 	}
 
-	// 變更Checkbox
+
+	// 34. 變更Checkbox
 	changeCheckbox(index, type){
-		console.log('changeCheckbox：index', index, type)
+		console.log('changeCheckbox：indexw2222', index, type)
 		const [...list] = this.state.list;
 		list.map((item, i)=>{
 			if(item.id === index){
@@ -202,4 +210,3 @@ class Todolist extends Component {
 	}
 }
 
-export default Todolist;

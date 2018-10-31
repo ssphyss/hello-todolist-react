@@ -8,6 +8,7 @@
     // margin: 30px;    
     .section {
         width: 600px;
+        // min-height: 1200px;
         // position: absolute;
         // top: 50px;
         // left: 50%;
@@ -22,6 +23,9 @@
     .section-todo {
         background-color: #bbb9c1;
         background-color: #877ca9;
+    }
+    .todo {
+        padding: 55px 0;
     }
 }
 
@@ -47,6 +51,7 @@
     width: 80%;
     margin: 40px auto;
     padding: 30px;
+    padding-bottom: 56px;
     background-color: #fff; 
     box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.4);
 }
@@ -54,6 +59,8 @@ h5 {
     margin-top: 28px;
     padding: 20px 0;
     border-top: 1px dashed #bbb9c1;
+    color: #66559a;
+    font-size: 30px;
 }
 .todo__item, .todo__item--add, .todo__item--complete {
     display: flex;
@@ -90,8 +97,17 @@ h5 {
             background: transparent;
         }
         .form__checkbox-group {
-            opacity: 0;
+            // opacity: 0;
+            .form__checkbox-button {
+                &::before {
+                    opacity: 1
+                }
+                &::after {
+                    opacity: 1
+                }
+            }
         }
+        
     }
 
 }
